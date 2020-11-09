@@ -28,6 +28,10 @@ void print_list(struct song *root)
     }
     printf("]\n");
 }
+void print_song(struct song *song)
+{
+    printf("Song {Name:%s, Artist: %s}\n", song->name, song->artist);
+}
 
 struct song *insert_front(struct song *root, struct song *new_song)
 {
@@ -89,7 +93,7 @@ struct song *search_songs(struct song *root, char n[], char a[])
         }
         root = root->next;
     }
-    printf("song not found");
+    printf("song not found\n");//Perhaps we don't NEED this.
     return NULL;
 }
 

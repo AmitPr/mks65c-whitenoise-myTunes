@@ -27,20 +27,29 @@ int main()
     printf("\n");
     sample_songs = insert_ordered(sample_songs, new_song("Nights", "Frank Ocean"));
     search_result = search_songs(sample_songs, "Nights", "Frank Ocean");
-    print_list(search_result); // to fix: prints whole list instead of one song
+    print_song(search_result);
     printf("\n");
 
     printf("searching for first song by an artist: \n");
     search_result = search_first_song(sample_songs, "Mitski");
-    print_list(search_result); // to fix: prints first song + everything after it
+    print_song(search_result);
     printf("\n");
 
     printf("random song:\n");
     search_result = random_song(sample_songs);
-    print_list(search_result); // to fix: prints random song + everything after it
+    print_song(search_result);
     printf("\n");
 
-    // to test: remove song, free list
+    // to test: free list
 
+    printf("remove song:\n");
+    print_list(sample_songs);
+    sample_songs = remove_song(sample_songs,sample_songs);
+    print_list(sample_songs);
+    printf("\n");
+
+    printf("freeing list...");
+    free_list(sample_songs);
+    printf(" done.\n");
     return 0;
 }
