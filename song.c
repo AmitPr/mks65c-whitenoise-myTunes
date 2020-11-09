@@ -11,6 +11,7 @@ struct song *new_song(char n[], char a[])
     strncpy(s->name, n, sizeof(s->name) - 1);
     strncpy(s->artist, a, sizeof(s->artist) - 1);
     s->next = NULL;
+    return s;
 }
 
 void print_list(struct song *root)
@@ -18,7 +19,7 @@ void print_list(struct song *root)
     printf("[");
     while (root)
     {
-        printf("%s(by %s)", root->name, root->artist);
+        printf("%s (by %s)", root->name, root->artist);
         if (root->next)
         {
             printf(", ");
@@ -88,6 +89,7 @@ struct song *search_songs(struct song *root, char n[], char a[])
         }
         root = root->next;
     }
+    printf("song not found");
     return NULL;
 }
 
@@ -101,6 +103,7 @@ struct song *search_first_song(struct song *root, char a[])
         }
         root = root->next;
     }
+    printf("song not found");
     return NULL;
 }
 
@@ -128,7 +131,7 @@ struct song *random_song(struct song *root)
     }
 }
 
-struct song *remove(struct song *root, struct song *to_remove)
+struct song *remove_song(struct song *root, struct song *to_remove)
 {
     struct song *prev = NULL;
     struct song *cur = root;

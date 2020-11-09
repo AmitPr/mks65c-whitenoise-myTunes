@@ -15,7 +15,7 @@ struct song* search_songs(struct song* root, char n[], char a[]);
 struct song* search_first_song(struct song* root, char a[]);
 struct song* random_song(struct song* root);
 
-struct song* remove(struct song* root, struct song* to_remove);
+struct song* remove_song(struct song* root, struct song* to_remove);
 void free_list(struct song* root);
 
 void print_list(struct song* root);
