@@ -1,4 +1,4 @@
-all : main.o song.o
+all: main.o song.o
 	gcc -o prog main.c song.o
 
 main.o: main.c song.h
@@ -7,7 +7,7 @@ main.o: main.c song.h
 song.o: song.c song.h
 	gcc -c song.c
 
-run : prog
+run: prog
 	./prog
 
 clean:

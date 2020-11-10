@@ -30,7 +30,7 @@ void print_list(struct song *root)
 }
 void print_song(struct song *song)
 {
-    printf("Song {Name:%s, Artist: %s}\n", song->name, song->artist);
+    printf("Song {Name: %s, Artist: %s}\n", song->name, song->artist);
 }
 
 struct song *insert_front(struct song *root, struct song *new_song)
@@ -127,7 +127,7 @@ struct song *random_song(struct song *root)
     while (cur)
     {
         ++j;
-        if (j == n)
+        if (j == n-1)
         {
             return cur;
         }
