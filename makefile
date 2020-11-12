@@ -15,3 +15,4 @@ run : prog
 
 clean:
 	rm *.o
+	rm prog
