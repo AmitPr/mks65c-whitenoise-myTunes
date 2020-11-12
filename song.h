@@ -20,4 +20,6 @@ void free_list(struct song *root);
 
 void print_list(struct song *root);
 void print_song(struct song *song);
+
+int len_list(struct song *root);
 #endif

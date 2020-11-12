@@ -30,7 +30,8 @@ void clear_library(struct library *lib)
 {
     for (int i = 0; i < 27; i++)
     {
-        lib->library_data[i] = NULL;
+        if (lib->library_data[i])
+            free_list(lib->library_data[i]);
     }
 }
 void free_library(struct library *lib)
@@ -42,7 +43,7 @@ void add_song(struct library *lib, struct song *s)
     int index = get_alphabet_index(s);
     if (lib->library_data[index])
     {
-        lib->library_data[index]=insert_ordered(lib->library_data[index], s);
+        lib->library_data[index] = insert_ordered(lib->library_data[index], s);
     }
     else
     {
@@ -130,18 +131,50 @@ void shuffle(struct library *lib, int num)
     srand(time(NULL));
     printf("Shuffle:\n");
     struct song *roots[27];
-    int j = 0;
+    int count = 0;
     for (int i = 0; i < 27; i++)
     {
         if (lib->library_data[i])
         {
-            roots[j] = lib->library_data[i];
-            ++j;
+            struct song *cur = lib->library_data[i];
+            while (cur)
+            {
+                ++count;
+                cur = cur->next;
+            }
         }
     }
     for (int i = 0; i < num; i++)
     {
-        int index = rand() % j;
-        print_song(random_song(roots[j]));
+        int index = rand() % count;
+        ++index;
+
+        int cur_count = 0;
+        for (int j = 0; j < 27; j++)
+        {
+            if (lib->library_data[j])
+            {
+                int len = len_list(lib->library_data[j]);
+                if (cur_count + len < index)
+                {
+                    cur_count += len;
+                }
+                else
+                {
+                    struct song *cur = lib->library_data[j];
+                    ++cur_count;
+                    while (cur_count < index)
+                    {
+                        cur = cur->next;
+                        ++cur_count;
+                    }
+                    print_song(cur);
+                }
+            }
+            if (cur_count >= index)
+            {
+                break;
+            }
+        }
     }
 }

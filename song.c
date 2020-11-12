@@ -113,23 +113,18 @@ struct song *search_first_song(struct song *root, char a[])
 struct song *random_song(struct song *root)
 {
     srand(time(NULL));
-    int i = 0;
+    int i = len_list(root);
     struct song *cur = root;
-    while (cur)
-    {
-        ++i;
-        cur = cur->next;
-    }
-    int n = rand() % i;
+    int n = rand() % (i - 1);
     int j = 0;
     cur = root;
     while (cur)
     {
-        ++j;
-        if (j == n-1)
+        if (j == n)
         {
             return cur;
         }
+        ++j;
         cur = cur->next;
     }
 }
@@ -145,13 +140,16 @@ struct song *remove_song(struct song *root, struct song *to_remove)
             if (prev)
             {
                 prev->next = cur->next;
+                free(cur);
                 return root;
             }
             else
             {
                 // Node to remove is the first in the list, check to see if it has anything following it.
-                if(cur->next)
-                    return cur->next;
+                struct song *next = cur->next;
+                free(cur);
+                if (next)
+                    return next;
                 return NULL;
             }
         }
@@ -168,4 +166,16 @@ void free_list(struct song *root)
         free(root);
         root = tmp;
     }
+}
+
+
+int len_list(struct song *root){
+    int i = 0;
+    struct song *cur = root;
+    while (cur)
+    {
+        ++i;
+        cur = cur->next;
+    }
+    return i;
 }

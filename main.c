@@ -59,14 +59,13 @@ int main()
         new_song("yellow submarine", "the beatles"),
         new_song("hey jude", "the beatles"),
         new_song("legend", "the score"),
-        new_song("space song", "beach house"),
         new_song("chicago", "sufjan stevens"),
         new_song("i don't smoke", "mitski"),
         new_song("nights", "frank ocean")};
     
     printf("Testing add song & print library:\n");
     struct library *lib = create_library();
-    for (int i = 0; i < 9; i++)
+    for (int i = 0; i < 8; i++)
     {
         add_song(lib, songs[i]);
     }
@@ -92,8 +91,21 @@ int main()
     printf("\nTesting search artist (the beatles):\n");
     print_list(search_artist(lib,"the beatles"));
 
+    printf("\nTesting print artist (the beatles):\n");
+    print_artist(lib,"the beatles");
+
+    printf("\nTesting shuffle:\n");
+    shuffle(lib,5);
+
     printf("\nTesting delete song:\n");
     delete_song(lib,songs[0]);
     print_library(lib);
+
+    printf("\nTesting clear library:\n");
+    clear_library(lib);
+    printf("Attempting to print cleared library:\n");
+    print_library(lib);
+
+    free_library(lib);
     return 0;
 }
