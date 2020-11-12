@@ -30,8 +30,10 @@ void clear_library(struct library *lib)
 {
     for (int i = 0; i < 27; i++)
     {
-        if (lib->library_data[i])
+        if (lib->library_data[i]){
             free_list(lib->library_data[i]);
+            lib->library_data[i]=NULL;
+        }
     }
 }
 void free_library(struct library *lib)
@@ -88,9 +90,16 @@ void print_letter(struct library *lib, char letter)
 }
 void print_library(struct library *lib)
 {
-    for (char i = 97; i < 124; i++)
+    int printed = 0;
+    for (char i = 0; i < 27; i++)
     {
-        print_letter(lib, i);
+        if(lib->library_data[i]){
+            print_letter(lib, i+97);
+            printed++;
+        }
+    }
+    if(printed==0){
+        printf("Empty Library!\n");
     }
 }
 void print_artist(struct library *lib, char a[])
