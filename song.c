@@ -3,7 +3,6 @@
 #include <time.h>
 #include <string.h>
 #include "song.h"
-#include "string.h"
 
 struct song *new_song(char n[], char a[])
 {
@@ -19,7 +18,7 @@ void print_list(struct song *root)
     printf("[");
     while (root)
     {
-        printf("%s (by %s)", root->name, root->artist);
+        printf("%s (%s)", root->name, root->artist);
         if (root->next)
         {
             printf(", ");
@@ -93,7 +92,7 @@ struct song *search_songs(struct song *root, char n[], char a[])
         }
         root = root->next;
     }
-    printf("song not found\n");//Perhaps we don't NEED this.
+    printf("song not found\n"); //Perhaps we don't NEED this.
     return NULL;
 }
 
@@ -150,8 +149,10 @@ struct song *remove_song(struct song *root, struct song *to_remove)
             }
             else
             {
-                // Node to remove is the first in the list
-                return cur->next;
+                // Node to remove is the first in the list, check to see if it has anything following it.
+                if(cur->next)
+                    return cur->next;
+                return NULL;
             }
         }
         cur = cur->next;
